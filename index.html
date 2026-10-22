@@ -3,233 +3,223 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>六级冲600 · 8周打卡表（按周版）</title>
+<title>六级冲600 · 冲刺版（52天）</title>
 <style>
   * { box-sizing: border-box; }
   body { font-family: "PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif; color:#222; max-width: 920px; margin: 0 auto; padding: 24px 20px; }
-  header { text-align:center; padding-bottom: 12px; border-bottom: 3px solid #1a73e8; margin-bottom: 16px; }
+  header { text-align:center; padding-bottom: 12px; border-bottom: 3px solid #c0392b; margin-bottom: 16px; }
   h1 { margin: 0 0 6px; font-size: 26px; }
   .sub { color: #666; font-size: 14px; }
+  .urgent { background: #fdecea; border: 2px solid #c0392b; border-radius: 8px; padding: 10px 14px; font-size: 13px; margin: 8px 0 16px; color:#922; font-weight:600; }
   .phase { display: flex; gap: 8px; margin: 4px 0 22px; }
   .phase div { flex: 1; border: 1px solid #d5dde8; border-radius: 8px; padding: 10px; text-align: center; font-size: 13px; background: #f7fafd; }
   .phase .t { font-weight: 700; font-size: 15px; color: #1a73e8; }
   h2 { font-size: 20px; margin: 28px 0 8px; color: #1a73e8; border-left: 4px solid #1a73e8; padding-left: 8px; }
   h3 { font-size: 15px; margin: 14px 0 6px; color: #333; }
-
-  /* 用品清单与提示 */
   .materials { background: #eef4fd; border: 1px solid #bcd4f0; border-radius: 8px; padding: 10px 14px; font-size: 13px; margin-bottom: 16px; }
   .materials ul { list-style: none; padding-left: 2px; margin: 8px 0 0; }
   .materials li { margin: 4px 0; }
   .materials.amber { background: #fff8e6; border-color: #f0d58c; }
-
-  /* 每日卡片 */
+  .materials.red { background: #fdecea; border-color: #e89c9c; }
   .day { border: 1px solid #d5dde8; border-radius: 10px; margin: 12px 0; overflow: hidden; }
   .day-head { background: #1a73e8; color: #fff; padding: 8px 14px; font-weight: 700; font-size: 15px; }
   .day.weekend { border-color: #e8a13d; }
   .day.weekend .day-head { background: #d97b06; }
+  .day.urgent { border-color: #c0392b; }
+  .day.urgent .day-head { background: #c0392b; }
   .day-head .goal { font-weight: 400; font-size: 12px; opacity: .9; float: right; line-height: 22px; }
   .day-body { padding: 10px 14px 12px; font-size: 13.5px; }
   .day-body .t { display: block; margin: 8px 0 3px; font-weight: 700; color: #1a73e8; }
   .day.weekend .day-body .t { color: #d97b06; }
+  .day.urgent .day-body .t { color: #c0392b; }
   .task { margin: 4px 0; line-height: 1.7; }
   .task .how { color: #666; font-size: 12.5px; }
   .task b { font-weight: 600; }
   input[type=checkbox] { width: 14px; height: 14px; vertical-align: middle; margin-right: 4px; }
-
-  /* 每周占位 */
   .placeholder { border: 1px dashed #bbb; border-radius: 8px; padding: 10px 14px; margin: 10px 0; font-size: 13px; color: #555; background: #fafbfc; }
   .placeholder b { color: #333; }
-
-  /* 每周完成清单 */
   .wk { list-style: none; padding-left: 4px; font-size: 13px; margin: 8px 0 0; }
   .wk li { margin: 5px 0; }
-
   .rules { background: #f4f6f8; border-radius: 8px; padding: 12px 16px; font-size: 13px; margin-top: 24px; }
   .rules b { color: #c0392b; }
   .toolbar { text-align: right; margin-bottom: 8px; }
   .toolbar button { border: 1px solid #aaa; background: #fff; padding: 4px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; }
-  @media print {
-    body { padding: 6mm; }
-    .toolbar { display: none; }
-    h2, h3, .day, .placeholder { break-inside: avoid; }
-  }
+  @media print { body { padding: 6mm; } .toolbar { display: none; } h2, h3, .day, .placeholder { break-inside: avoid; } }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>六级冲600 · 8周打卡表（按周版）</h1>
-  <div class="sub">词汇主线：新东方六级词汇书 · 2天1部分（10-12起，60天过完30个部分）｜ 真题模考固定在周末 ｜ 勾选自动保存</div>
+  <h1>六级冲600 · 52天冲刺版</h1>
+  <div class="sub">考试日：12-13 周六 ｜ 今日起 52 天 ｜ 手机勾选自动保存，可打印</div>
 </header>
 
 <div class="toolbar"><button onclick="resetAll()">清空全部勾选</button></div>
 
+<div class="urgent">⚠️ 两年未学，身体刚恢复，以得分为唯一目标，不搞形式主义。词汇压缩节奏+跳过已掌握词，听力+仔细阅读是最大提分池。</div>
+
 <div class="phase">
-  <div><div class="t">第1-2周</div>摸底 + 词汇 + 听力启动</div>
-  <div><div class="t">第3-6周</div>分项突破（阅读 / 写作 / 翻译）</div>
-  <div><div class="t">第7-8周</div>全真模考 + 冲刺背诵</div>
+  <div><div class="t">第1周</div>摸底 + 听力恢复</div>
+  <div><div class="t">第2-4周</div>分项突破</div>
+  <div><div class="t">第5-6周</div>词汇收尾 + 模考加密</div>
+  <div><div class="t">第7-8周</div>纯复习 + 冲刺</div>
+</div>
+
+<!-- ===================== 今晚必做 ===================== -->
+<h2>今晚（10-22 周三）必做</h2>
+<div class="materials red">
+  <b>立刻下单，明天必须到货：</b>
+  <ul>
+    <li><input type="checkbox"> ① 新东方《大学英语六级考试超详解版》（近5年真题）——模考/精听/精读/翻译核心</li>
+    <li><input type="checkbox"> ② 王江涛《六级写作高分范文100篇》——第3周写作启动要模仿范文</li>
+  </ul>
+  <b>已有的（不用买）：</b>新东方六级词汇书（30个部分）——词汇主线，压缩到1.5天/List
+</div>
+
+<div class="materials amber">
+  <b>词汇书压缩节奏（5分钟判断法）：</b>
+  <ul>
+    <li>每个List开头<b>先花5分钟快速扫一遍</b>（只看英文，脑中反应中文），已认识词 ≥ 70% 的List → <b>只看不认识的词</b>，1天过完；否则2天</li>
+    <li>第1遍（学新）：按书过 + 词根联想 + 圈出没记住的词（约25-30分钟/完整List）</li>
+    <li>第2遍（复习）：只看圈的词 + 遮中文自测（约15-20分钟）；仍不会的抄进生词本</li>
+    <li>滚动：每学新List前3分钟回扫上一个List的圈词</li>
+    <li>只要求认识，不背拼写；写作要用的词后期单独练</li>
+    <li><b>截止日：11-18 前必须过完30个List，留25天纯复习</b></li>
+  </ul>
 </div>
 
 <!-- ===================== 第1周 ===================== -->
-<h2>第1周 · 10-12（周一）～ 10-18（周日）</h2>
+<h2>第1周 · 10-23（周四）～ 10-28（周二）</h2>
 
 <div class="materials amber">
-  <b>今晚（10-11 周日）只做一件事：</b>备齐下面5样，明早正式开始，其他什么都不用干。
-</div>
-
-<div class="materials">
-  <b>本周用品（备齐打勾）：</b>
+  <b>本周用品（全部备齐打勾才能开工）：</b>
   <ul>
-    <li><input type="checkbox"> 新东方六级词汇书（30个部分）——词汇主线，2天1部分</li>
-    <li><input type="checkbox"> 新东方《大学英语六级考试超详解版》真题——第1套留给周六模考，先别翻</li>
-    <li><input type="checkbox"> 确认这套书：① 含近5年真题（≥10套）② 有听力原文 ③ 音频能播放（扫码或App）；缺哪条告诉我</li>
+    <li><input type="checkbox"> 新东方六级词汇书（30个部分）——压缩到1.5天/List</li>
+    <li><input type="checkbox"> 新东方六级真题超详解——到手！第1套留给周六模考，先别翻</li>
     <li><input type="checkbox"> 每日英语听力App（支持单句复读、倍速）</li>
-    <li><input type="checkbox"> 生词本（纸质或App均可）——书上圈出的词 + 听力真题生词都进这里</li>
-    <li><input type="checkbox"> 计时器（手机倒计时即可）</li>
+    <li><input type="checkbox"> 生词本（纸质或App均可）</li>
+    <li><input type="checkbox"> 计时器（手机倒计时）</li>
   </ul>
 </div>
 
-<div class="materials">
-  <b>词汇书用法（2天1部分的固定循环）：</b>
-  <ul>
-    <li><b>第1遍（学新）</b>：按书过整部分，用书里的词根+联想记忆；遮住中文自测，<b>圈出没记住的词</b>（约25-30分钟）</li>
-    <li><b>第2遍（复习）</b>：只重点看昨天圈的词 + 遮中文快速自测整部分；<b>仍然不会的抄进生词本</b>（约15-20分钟）</li>
-    <li><b>滚动</b>：每学新部分前，花3分钟扫一眼上一部分的圈词</li>
-    <li><b>只要求认识，不背拼写</b>；写作要用的词后期单独练</li>
-  </ul>
-</div>
-
-<div class="materials amber">
-  <b>节奏账：</b>30部分 × 2天 = 60天，10-12开始 → <b>12月10日前后收尾</b>，正好赶在12月中旬考试前。三个提醒：① 已认识词多的部分可以1天过完，给考前腾出纯复习周；② 第2遍（复习）一天都不能省，不然等于白背；③ 真题精读时，长难句<b>自己先拆主干再对照超详解的解析</b>，别直接看答案译文。
-</div>
-
-<div class="day">
-  <div class="day-head">第1天 · 周一 10-12 · 启动日<span class="goal">目标：跑通第一天节奏</span></div>
+<div class="day urgent">
+  <div class="day-head">第1天 · 周四 10-23 · 摸底+启动<span class="goal">目标：1套完整真题重新测水平</span></div>
   <div class="day-body">
-    <span class="t">早上 25-30 分钟 · 词汇书 List 1 第1遍（学新）</span>
-    <div class="task"><input type="checkbox"> 按书过完 List 1：词根+联想记忆，遮住中文自测，<b>圈出没记住的词</b></div>
-    <span class="t">晚上 40 分钟 · 听力精听 第1篇（讲座）</span>
-    <div class="task"><input type="checkbox"> ① 盲听做题：真题讲座音频听1遍，像考试一样选（10分钟）</div>
-    <div class="task"><input type="checkbox"> ② 对答案看原文：标记没听懂的生词、连读弱读（5分钟）</div>
-    <div class="task"><input type="checkbox"> ③ 逐句跟读：暂停跟读每句，模仿语速连读（10分钟）</div>
-    <div class="task"><input type="checkbox"> ④ 合上原文重听：每句都听懂才算过（5分钟）</div>
-    <div class="task"><input type="checkbox"> 听力生词录入生词本（5-10分钟）</div>
+    <span class="t">早上/下午 2.5小时 · 限时摸底（优先完成）</span>
+    <div class="task"><input type="checkbox"> 写作30分钟 → 听力25分钟 → 阅读40分钟 → 翻译30分钟，全程不查手机不查词典</div>
+    <div class="task"><input type="checkbox"> <b>听力边听边涂卡</b>——答题卡1考完即收，没有誊抄时间</div>
+    <div class="task"><input type="checkbox"> 对答案，<b>记录4个板块得分</b>（写作/听力/阅读/翻译各多少）</div>
+    <div class="task"><input type="checkbox"> 自问3个问题：听力讲座听懂几成？阅读时间够吗？写作卡在哪？</div>
+    <div class="task"><input type="checkbox"> 确定本周主攻方向（大概率听力手感下降了）</div>
+    <span class="t">晚上 25-30分钟 · 词汇 List 1</span>
+    <div class="task"><input type="checkbox"> 5分钟快速扫描 → 判断是否跳过已掌握词 → 按书过完List 1 → 圈出没记住的词</div>
+    <span class="t">晚上 40分钟 · 听力精听 第1篇（讲座）</span>
+    <div class="task"><input type="checkbox"> 四步法：盲听做题→对答案看原文→逐句跟读→合原文重听</div>
+    <div class="task"><input type="checkbox"> 听力生词录入生词本</div>
   </div>
 </div>
 
 <div class="day">
-  <div class="day-head">第2天 · 周二 10-13 · 常规日<span class="goal">目标：巩固节奏 + 倍速检验</span></div>
+  <div class="day-head">第2天 · 周五 10-24 · 听力恢复<span class="goal">目标：连续精听找回手感</span></div>
   <div class="day-body">
-    <span class="t">早上 15-20 分钟 · List 1 第2遍（复习）</span>
-    <div class="task"><input type="checkbox"> 重点看昨天圈的词 + 遮中文自测整部分</div>
-    <div class="task"><input type="checkbox"> 仍不会的词<b>抄进生词本</b></div>
-    <span class="t">晚上 40 分钟 · 听力精听 第2篇（讲座）</span>
+    <span class="t">早上 15-20分钟 · List 1 第2遍（复习）</span>
+    <div class="task"><input type="checkbox"> 只看圈的词 + 遮中文自测 → 仍不会的抄生词本</div>
+    <span class="t">晚上 40分钟 · 听力精听 第2篇（讲座）</span>
     <div class="task"><input type="checkbox"> 四步法完整走一遍</div>
-    <div class="task"><input type="checkbox"> <b>进阶</b>：昨天的第1篇用 <b>1.2倍速</b> 重听一遍，检验跟不跟得上</div>
+    <div class="task"><input type="checkbox"> <b>进阶</b>：昨天的第1篇用 <b>1.2倍速</b> 重听一遍</div>
     <div class="task"><input type="checkbox"> 听力生词录入生词本</div>
-  </div>
-</div>
-
-<div class="day">
-  <div class="day-head">第3天 · 周三 10-14 · 常规日<span class="goal">目标：保持节奏</span></div>
-  <div class="day-body">
-    <span class="t">早上 3分钟滚动 + 25-30 分钟 · List 2 第1遍（学新）</span>
-    <div class="task"><input type="checkbox"> 先扫一眼 List 1 的圈词（3分钟）</div>
-    <div class="task"><input type="checkbox"> 按书过完 List 2，遮中文自测，圈出没记住的词</div>
-    <span class="t">晚上 40 分钟 · 听力精听 第3篇（讲座）</span>
-    <div class="task"><input type="checkbox"> 四步法完整走一遍</div>
-    <div class="task"><input type="checkbox"> 听力生词录入生词本</div>
-  </div>
-</div>
-
-<div class="day">
-  <div class="day-head">第4天 · 周四 10-15 · 换题型日<span class="goal">目标：练长对话，防止只会讲座</span></div>
-  <div class="day-body">
-    <span class="t">早上 15-20 分钟 · List 2 第2遍（复习）</span>
-    <div class="task"><input type="checkbox"> 重点看昨天圈的词 + 遮中文自测整部分</div>
-    <div class="task"><input type="checkbox"> 仍不会的词抄进生词本</div>
-    <span class="t">晚上 40 分钟 · 听力精听 第4篇（长对话）</span>
-    <div class="task"><input type="checkbox"> 四步法完整走一遍（换题型）</div>
-    <div class="task"><input type="checkbox"> 听力生词录入生词本</div>
-  </div>
-</div>
-
-<div class="day">
-  <div class="day-head">第5天 · 周五 10-16 · 常规日 + 模考准备<span class="goal">目标：轻量练习，为周六模考做准备</span></div>
-  <div class="day-body">
-    <span class="t">早上 3分钟滚动 + 25-30 分钟 · List 3 第1遍（学新）</span>
-    <div class="task"><input type="checkbox"> 先扫一眼 List 2 的圈词（3分钟）</div>
-    <div class="task"><input type="checkbox"> 按书过完 List 3，遮中文自测，圈出没记住的词</div>
-    <span class="t">晚上 40 分钟 · 听力精听 第5篇（讲座，轻量收尾）</span>
-    <div class="task"><input type="checkbox"> 四步法完整走一遍</div>
-    <div class="task"><input type="checkbox"> 听力生词录入生词本</div>
-    <span class="t">睡前 10 分钟 · 明天模考准备</span>
-    <div class="task"><input type="checkbox"> 取出第1套真题 + 打印/准备答题卡</div>
-    <div class="task"><input type="checkbox"> 手机定好明天 <b>14:45</b> 的闹钟（六级考试就在下午，生物钟对齐考场）</div>
-    <div class="task"><input type="checkbox"> 试播这套题的听力音频，确认能放</div>
   </div>
 </div>
 
 <div class="day weekend">
-  <div class="day-head">第6天 · 周六 10-17 · 模考日<span class="goal">目标：限时测出真实水平</span></div>
+  <div class="day-head">第3天 · 周六 10-25 · 模考日<span class="goal">目标：限时测出真实水平（对齐12-13周六考试节奏）</span></div>
   <div class="day-body">
-    <span class="t">早上 15 分钟 · List 3 第2遍（快速版）</span>
-    <div class="task"><input type="checkbox"> 只看昨天圈的词，遮中文自测（今天主角是模考，别超时）</div>
-    <span class="t">下午 15:00-17:30 · 第1套完整真题（当考试考）</span>
-    <div class="task"><input type="checkbox"> <b>写作 30分钟</b>：写满150词以上，不停笔不查词</div>
-    <div class="task"><input type="checkbox"> <b>听力 25分钟</b>：边听边涂卡（答题卡1考完即收，没有誊抄时间）</div>
-    <div class="task"><input type="checkbox"> <b>阅读 40分钟</b>：先仔细阅读 → 段落匹配 → 选词填空</div>
-    <div class="task"><input type="checkbox"> <b>翻译 30分钟</b>：先定时态基调，不留白</div>
-    <div class="task"><input type="checkbox"> 全程不查手机、不查词典，中途不起身</div>
-    <span class="t">晚上 30 分钟 · 只对答案，不深改</span>
-    <div class="task"><input type="checkbox"> 对答案，<b>记录4个板块得分</b>（写作/听力/阅读/翻译各多少分，写进本子）</div>
-    <div class="task"><input type="checkbox"> 圈出试卷生词（深改留到明天）</div>
+    <span class="t">下午 15:00-17:30 · 第2套完整真题</span>
+    <div class="task"><input type="checkbox"> 写作30分钟→听力25分钟→阅读40分钟→翻译30分钟</div>
+    <div class="task"><input type="checkbox"> 全程不查手机，听力边听边涂卡</div>
+    <span class="t">晚上 30分钟 · 对答案（只记分，深改留明天）</span>
+    <div class="task"><input type="checkbox"> 记录4个板块得分，对比周四摸底的变化</div>
+    <div class="task"><input type="checkbox"> 圈出试卷生词</div>
   </div>
 </div>
 
 <div class="day weekend">
-  <div class="day-head">第7天 · 周日 10-18 · 复盘日<span class="goal">目标：深度复盘，定下周主攻方向</span></div>
+  <div class="day-head">第4天 · 周日 10-26 · 复盘+加阅读<span class="goal">目标：深度复盘 + 加入仔细阅读训练</span></div>
   <div class="day-body">
-    <span class="t">早上 25-30 分钟 · List 4 第1遍（学新）</span>
-    <div class="task"><input type="checkbox"> 先扫一眼 List 3 的圈词（3分钟）</div>
-    <div class="task"><input type="checkbox"> 按书过完 List 4，遮中文自测，圈出没记住的词</div>
-    <span class="t">下午/晚上 60-90 分钟 · 深度复盘</span>
-    <div class="task"><input type="checkbox"> 阅读错题逐题写错因（定位错 / 同义替换没看出 / 长难句没懂）</div>
+    <span class="t">早上 25-30分钟 · List 2 第1遍（学新）</span>
+    <div class="task"><input type="checkbox"> 先扫一眼List 1圈词（3分钟）→ 5分钟快速扫描判断 → 过完List 2 → 圈词</div>
+    <span class="t">上午/下午 60-90分钟 · 深度复盘</span>
+    <div class="task"><input type="checkbox"> 阅读错题逐题写错因（定位错/同义替换没看出/长难句没懂）</div>
     <div class="task"><input type="checkbox"> 听力错题重新听原文，确认这次能听懂</div>
-    <div class="task"><input type="checkbox"> 快速重听本周精听过的5篇（每篇1遍即可）</div>
-    <div class="task"><input type="checkbox"> 数生词本新增数量（目标 ≥ 200词：书上圈词 + 听力生词）</div>
-    <div class="task"><input type="checkbox"> 写下下周2个目标：词汇按书推进 + 周六第2套限时真题，对比今天的得分</div>
-    <div class="task"><input type="checkbox"> 下单王江涛《六级写作高分范文100篇》（第3周写作启动要用）</div>
+    <div class="task"><input type="checkbox"> 快速重听本周精听过的2篇（每篇1遍）</div>
+    <div class="task"><input type="checkbox"> 数生词本新增数量（目标≥150词）</div>
+    <span class="t">晚上 40分钟 · 仔细阅读限时训练（启动阅读）</span>
+    <div class="task"><input type="checkbox"> 真题仔细阅读2篇，<b>每篇限时8分钟</b>（到点就停笔，培养速度感）</div>
+    <div class="task"><input type="checkbox"> 逐题复盘：定位+同义替换，错题写错因</div>
+  </div>
+</div>
+
+<div class="day">
+  <div class="day-head">第5天 · 周一 10-27 · 常规日<span class="goal">目标：三轨并行</span></div>
+  <div class="day-body">
+    <span class="t">早上 15-20分钟 · List 2 第2遍（复习）</span>
+    <div class="task"><input type="checkbox"> 圈词 + 自测 → 生词本</div>
+    <span class="t">晚上 40分钟 · 听力精听 第3篇（讲座）</span>
+    <div class="task"><input type="checkbox"> 四步法 → 生词录入</div>
+    <span class="t">晚上 20分钟 · 仔细阅读1篇（限时8分钟+复盘）</span>
+    <div class="task"><input type="checkbox"> 保持速度感</div>
+  </div>
+</div>
+
+<div class="day">
+  <div class="day-head">第6天 · 周二 10-28 · 换题型日<span class="goal">目标：练长对话收尾</span></div>
+  <div class="day-body">
+    <span class="t">早上 25-30分钟 · List 3 第1遍（学新）</span>
+    <div class="task"><input type="checkbox"> 先扫List 2圈词 → 5分钟扫描 → 过完List 3 → 圈词</div>
+    <span class="t">晚上 40分钟 · 听力精听 第4篇（长对话，换题型）</span>
+    <div class="task"><input type="checkbox"> 四步法 → 生词录入</div>
+    <span class="t">晚上 20分钟 · 仔细阅读1篇（限时8分钟+复盘）</span>
+    <div class="task"><input type="checkbox"> 保持速度感</div>
   </div>
 </div>
 
 <h3>第1周 · 完成清单</h3>
 <ul class="wk">
-  <li><input type="checkbox"> 周六完成1套限时摸底，4个板块得分已记录</li>
-  <li><input type="checkbox"> List 1-4 已过第1遍；List 1-3 已完成第2遍自测</li>
-  <li><input type="checkbox"> 精听 ≥ 5篇（含1篇长对话）+ 1.2倍速重听</li>
-  <li><input type="checkbox"> 生词本新增 ≥ 200词（词汇书圈词 + 听力生词）</li>
-  <li><input type="checkbox"> 周日已写下下周目标，知道主攻方向</li>
+  <li><input type="checkbox"> 周四摸底+周六模考，2套限时真题，4个板块得分已记录并对比</li>
+  <li><input type="checkbox"> List 1-3 已过完；List 1-2 已完成第2遍自测</li>
+  <li><input type="checkbox"> 精听 ≥ 4篇（含1篇长对话）+ 1.2倍速重听</li>
+  <li><input type="checkbox"> 仔细阅读限时训练 ≥ 4篇，错题已写错因</li>
+  <li><input type="checkbox"> 生词本新增 ≥ 150词</li>
 </ul>
 
-<!-- ===================== 第2周 ===================== -->
-<h2>第2周 · 10-19 ～ 10-25 · 词汇推进 + 听力巩固（占位）</h2>
+<!-- ===================== 第2-4周 ===================== -->
+<h2>第2-4周 · 分项突破（占位，节奏如下）</h2>
 <div class="placeholder">
-  <b>节奏：</b>词汇按书走——周一 List 4 第2遍，之后 List 5、6、7 各2天；每天精听1篇；<b>周六</b>第2套限时真题，<b>周日</b>复盘并对比第1周得分。<br>
-  <span style="color:#1a73e8;">👉 对我说「细化第2周」，做成和第1周一样的逐日版。</span>
+  <b>每天固定三轨：</b>词汇（早上）+ 听力精听（晚上30分钟）+ 仔细阅读限时训练（晚上20-40分钟）<br>
+  <b>周六</b>：1套限时模考 → <b>周日</b>：深度复盘 + 加入翻译/写作训练<br>
+  <b>第3周起</b>：写作每周2篇（限时30分钟+批改）+ 翻译每周3-4篇真题精改<br>
+  <b>词汇进度</b>：第2周末≈List 10，第3周末≈List 17，第4周末≈List 24<br>
+  <span style="color:#1a73e8;">👉 对我说「细化第2周」，做成逐日版</span>
 </div>
 
-<!-- ===================== 第3-6周 ===================== -->
-<h2>第3-6周 · 分项突破（占位）</h2>
-<div class="placeholder"><b>第3周：</b>阅读启动（仔细阅读限时8分钟/篇 + 错因复盘）＋ 写作启动（每周2篇批改）；词汇推进到 List 12 前后；周末第3套模考。<br>👉 对我说「细化第3周」</div>
-<div class="placeholder"><b>第4周：</b>翻译启动（每周3-4篇真题精改）＋ 精读范文；词汇推进到 List 17 前后；周末第4套模考。<br>👉 对我说「细化第4周」</div>
-<div class="placeholder"><b>第5周：</b>全科精进（每周2套真题：周六限时模考 + 周日分板块精做）；听力开始1.2倍速；词汇推进到 List 22 前后。<br>👉 对我说「细化第5周」</div>
-<div class="placeholder"><b>第6周：</b>查漏补缺（专攻最弱板块，生词本冲刺）；词汇推进到 List 27 前后；周末第6套模考。<br>👉 对我说「细化第6周」</div>
+<!-- ===================== 第5-6周 ===================== -->
+<h2>第5-6周 · 词汇收尾+模考加密（占位）</h2>
+<div class="placeholder">
+  <b>词汇</b>：11-18 前必须过完 List 30（压缩到1天/List加速收尾）<br>
+  <b>模考加密</b>：每周2套（周六限时模考 + 周日限时模考），听力1.2倍速开始练<br>
+  <b>写作翻译</b>：背熟自己的句子库 + 翻译高频表达<br>
+  <span style="color:#1a73e8;">👉 对我说「细化第5周」</span>
+</div>
 
 <!-- ===================== 第7-8周 ===================== -->
-<h2>第7-8周 · 全真模考冲刺（占位）</h2>
-<div class="placeholder"><b>第7周：</b>模考加密至每周3套（周五晚 + 周六 + 周日），听力1.25倍速，背写作句子库＋翻译表达；词汇收尾 List 28-30（可1天1部分加速）。<br>👉 对我说「细化第7周」</div>
-<div class="placeholder"><b>第8周：</b>模考 + 错题复盘，词汇只复习圈词和生词本，不学新内容；考前1天只过生词本和句子库，不做新题。<br>👉 对我说「细化第8周」</div>
+<h2>第7-8周 · 纯复习+冲刺（11-26 ～ 12-12）</h2>
+<div class="placeholder">
+  <b>词汇</b>：<b>停止学新词</b>，只过圈词 + 生词本，一天2遍（早晚各扫一遍）<br>
+  <b>模考</b>：11-29、12-5、12-11 三套全真模考（严格下午15:00开考，对齐考场时间）<br>
+  <b>错题</b>：每套模考后当天复盘，只看错题，不做新题<br>
+  <b>考前1天（12-12）</b>：只过生词本 + 写作句子库 + 翻译表达，绝不做新题<br>
+  <span style="color:#1a73e8;">👉 对我说「细化冲刺周」</span>
+</div>
 
 <!-- ===================== 考场铁律 ===================== -->
 <div class="rules">
@@ -239,26 +229,25 @@
     <li>阅读40分钟顺序：仔细阅读(20min) → 段落匹配(10min) → 选词填空(剩多少做多少，按词性蒙)</li>
     <li>写作：3分钟审题列提纲 → 20分钟写作 → 5分钟检查（写满150词以上，卷面工整）</li>
     <li>翻译：先定时态基调 → 逐句"主干+修饰" → 不会的词用简单词兜底，绝不留白</li>
+    <li><b>12月13日 15:00</b>开考，提前定好14:30起床洗漱的闹钟</li>
   </ul>
 </div>
 
 <script>
 (function(){
   var boxes = document.querySelectorAll('input[type=checkbox]');
-  var KEY = 'cet6-weekly-v3-';
+  var KEY = 'cet6-sprint-v1-';
   for (var i = 0; i < boxes.length; i++) {
     (function(idx){
       if (localStorage.getItem(KEY + idx) === '1') boxes[idx].checked = true;
-      boxes[idx].addEventListener('change', function(){
-        localStorage.setItem(KEY + idx, boxes[idx].checked ? '1' : '0');
-      });
+      boxes[idx].addEventListener('change', function(){ localStorage.setItem(KEY + idx, boxes[idx].checked ? '1' : '0'); });
     })(i);
   }
 })();
 function resetAll(){
   if (!confirm('确定清空所有勾选吗？')) return;
   var boxes = document.querySelectorAll('input[type=checkbox]');
-  for (var i = 0; i < boxes.length; i++) { boxes[i].checked = false; localStorage.removeItem('cet6-weekly-v3-' + i); }
+  for (var i = 0; i < boxes.length; i++) { boxes[i].checked = false; localStorage.removeItem('cet6-sprint-v1-' + i); }
 }
 </script>
 
